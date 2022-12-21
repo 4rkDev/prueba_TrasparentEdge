@@ -4,23 +4,14 @@ resource "helm_release" "lb" {
   chart      = "aws-load-balancer-controller"
   namespace  = "kube-system"
   depends_on = [
-    kubernetes_service_account.service-account
+    kubernetes_service_account_v1.service-account
   ]
-
-  set {
-    name  = "region"
-    value = "eu-west-2"
-  }
 
   set {
     name  = "vpcId"
     value = data.terraform_remote_state.vpc.outputs.vpc_id
   }
-
-  set {
-    name  = "image.repository"
-    value = "602401143452.dkr.ecr.eu-west-2.amazonaws.com/amazon/aws-load-balancer-controller"
-  }
+  
 
   set {
     name  = "serviceAccount.create"
