@@ -1,3 +1,5 @@
+
+
 module "database" {
     source  = "terraform-aws-modules/rds/aws"
     version = "5.2.1"
@@ -9,15 +11,26 @@ module "database" {
     instance_class = "db.t2.small"
     allocated_storage = 5
     
-   
+    vpc_security_group_ids = [aws_security_group.rds-internal.id]
+
+    
     db_name = "wordpress"
     username = var.db_username
     password = var.db_password
     port     = "3306"
-    subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnets
+
+    
+
+    
+    
+    
+    db_subnet_group_name = "private-subnet-group"
+    
 
     maintenance_window = "Mon:00:00-Mon:03:00"
     backup_window      = "03:00-06:00"
+
+    multi_az = true
     
     
     family = "mysql5.7"
