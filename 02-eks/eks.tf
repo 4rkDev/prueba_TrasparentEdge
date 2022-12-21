@@ -11,16 +11,7 @@ module "eks" {
   vpc_id     = data.terraform_remote_state.vpc.outputs.vpc_id
   subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnets
 
-  node_security_group_additional_rules ={
-    ingress_allow_access_from_control_plane = {
-      type = "ingress"
-      protocol = "tcp"
-      from_port = 9443
-      to_port = 9443
-      source_cluster_security_group = true
-      description = "Allow access from control plane to webhooks AWS load balancer"
-    }
-  }
+ 
 
   eks_managed_node_groups = {
     default = {
