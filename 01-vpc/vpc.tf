@@ -1,7 +1,7 @@
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.14.3"
-  name = "transparent-vpc"
+  name = "vpc-trasparentEdge"
   cidr = "10.0.0.0/16"
 
   azs             = ["eu-west-1a", "eu-west-1b" , "eu-west-1c"]
@@ -19,12 +19,12 @@ module "vpc" {
     }
 
   public_subnet_tags = {
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/cluster/vpc-trasparentEdge" = "shared"
     "kubernetes.io/role/elb"                      = 1
   }
 
   private_subnet_tags = {
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/cluster/vpc-trasparentEdge" = "shared"
     "kubernetes.io/role/internal-elb"             = 1
   }
   
